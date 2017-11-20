@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>step-3</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="newTask">
+            <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+        </div>
+        <ol class="todos">
+            <li v-for="todo in todoList">
+                <input type="checkbox" v-model="todo.done">
+                {{ todo.title }}
+                <span v-if="todo.done" >已完成</span>
+                <span v-else>未完成</span>
+                <button @click="removeTodo(todo)">X</button>
+            </li>
+        </ol>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+
+</html>
