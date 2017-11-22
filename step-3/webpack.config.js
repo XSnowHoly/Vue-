@@ -10,6 +10,17 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader?presets[]=es2015&presets[]=react'
             },
+            {  
+                test: /\.css$/,  
+                use: ['style-loader', 'css-loader']  
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                      'url-loader?limit=10000',
+                      'img-loader'
+                ]
+            }
         ]
   },
   resolve: {

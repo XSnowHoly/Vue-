@@ -8,18 +8,24 @@
 
 <body>
     <div id="app">
+        <div class="logo"></div>
         <div class="newTask">
             <input type="text" v-model="newTodo" @keyup.enter="addTodo">
         </div>
-        <ol class="todos">
+        <div class="todos-box">
+            <ol class="todos">
             <li v-for="todo in todoList">
-                <input type="checkbox" v-model="todo.done">
-                {{ todo.title }}
-                <span v-if="todo.done" >已完成</span>
+                <input type="checkbox" v-bind:id="todo.id" v-model="todo.done">
+                <label v-bind:for="todo.id"></label>
+                <span class="title">{{ todo.title }}</span>
+                <span class="creation-time"> {{ todo.createdAt }} </span>
+                <span v-if="todo.done">已完成</span>
                 <span v-else>未完成</span>
-                <button @click="removeTodo(todo)">X</button>
+                <button @click="removeTodo(todo)">删除</button>
             </li>
         </ol>
+        </div>
+        
     </div>
     <script src="bundle.js"></script>
 </body>
