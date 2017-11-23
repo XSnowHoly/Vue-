@@ -795,6 +795,17 @@ var app = new _vue2.default({
         }
     },
     methods: {
+        saveTodos: function saveTodos() {
+            var dataString = JSON.stringify(this.todoList);
+            var AVTodos = _leancloudStorage2.default.Object.extend("AllTodos");
+            var avTodos = new AVTodos();
+            avTodos.set("content", dataString);
+            avTodos.save().then(function () {
+                alert("保存成功");
+            }, function (error) {
+                alert("保存失败");
+            });
+        },
         addTodo: function addTodo() {
             if (!this.newTodo) {
                 alert("请输入值");
@@ -807,11 +818,13 @@ var app = new _vue2.default({
                 id: this.idMaker()
             });
             this.newTodo = '';
+            this.saveTodos();
         },
 
         removeTodo: function removeTodo(todo) {
             var index = this.todoList.indexOf(todo);
             this.todoList.splice(index, 1);
+            this.saveTodos();
         },
 
         signUp: function signUp() {

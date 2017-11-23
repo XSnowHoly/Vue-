@@ -41,6 +41,17 @@ var app = new Vue({
         }
     },
     methods: {
+        saveTodos: function() {
+            let dataString = JSON.stringify(this.todoList);
+            var AVTodos = AV.Object.extend("AllTodos");
+            var avTodos = new AVTodos();
+            avTodos.set("content", dataString);
+            avTodos.save().then(function() {
+                alert("保存成功");
+            }, function(error) {
+                alert("保存失败");
+            });
+        },
         addTodo: function() {
             if (!this.newTodo) {
                 alert("请输入值");
@@ -53,11 +64,13 @@ var app = new Vue({
                 id: this.idMaker()
             });
             this.newTodo = '';
+            this.saveTodos();
         },
 
         removeTodo: function(todo) {
             let index = this.todoList.indexOf(todo);
             this.todoList.splice(index, 1);
+            this.saveTodos();
         },
 
         signUp: function() {
