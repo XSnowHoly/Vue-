@@ -11,11 +11,11 @@ li {
 }
 
 
-#app {
+#todo {
     border-radius: 5px;
     position: relative;
     padding: 20px 30px;
-    background: rgba(110,162,232, .8);
+    background: rgba(56, 85, 160, .8);
     box-shadow: 2px 1px 3px #333;
     max-width: 660px;
     margin: 12% auto 0;
@@ -23,39 +23,40 @@ li {
 }
 
 #signInAndSignUp {
-  background: #E0F2FD;
-  padding: 20px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 1px 2px 8px #000;
+    background: rgba(56, 85, 160, .8);
+    padding: 20px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 1px 2px 8px #000;
+    color: #fff;
 }
 
 #signInAndSignUp .signHead {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
 }
 
 #signInAndSignUp .signHead label {
-  margin-left: 20px;
-  display: inline-block;
+    margin-left: 20px;
+    display: inline-block;
 }
 
 #signInAndSignUp .formRow {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
 }
 
 #signInAndSignUp .formRow span {
-  width: 30%;
-  text-align: right;
+    width: 30%;
+    text-align: right;
 }
 
 #signInAndSignUp .formRow input {
-  font-size: 22px;
+    font-size: 22px;
     width: 50%;
     display: block;
     padding: 5px;
@@ -72,24 +73,25 @@ li {
 
 .signUp,
 .login {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .formActions {
-  float: right;
-  margin-top: 20px;
+    float: right;
+    margin-top: 20px;
 }
+
 .formActions input {
-  background: #19AD43;
-  border:none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  box-shadow: 2px 3px 8px #000;
-  color: #fff;
+    background: #19AD43;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    box-shadow: 2px 3px 8px #000;
+    color: #fff;
 }
 
 .formActions input:hover {
-  background: #4EB76B;
+    background: #4EB76B;
 }
 
 .logo {
@@ -125,18 +127,19 @@ li {
     width: 80%;
 }
 
-.todos input[type="checkbox"]+label::before{ 
-   content: '\a0';  /* non-break-block*/
-   display: inline-block;  
-   vertical-align: .1em; 
-   width: .8em; 
-   height: .8em;  
-   margin-right: .2em;  
-   border-radius: .2em;
-   background: silver; 
-   text-indent: .15em; 
-   line-height: .65em; 
-   transition: background .2s;
+.todos input[type="checkbox"]+label::before {
+    content: '\a0';
+    /* non-break-block*/
+    display: inline-block;
+    vertical-align: .1em;
+    width: .8em;
+    height: .8em;
+    margin-right: .2em;
+    border-radius: .2em;
+    background: silver;
+    text-indent: .15em;
+    line-height: .65em;
+    transition: background .2s;
 }
 
 .todos {
@@ -144,22 +147,24 @@ li {
     overflow: scroll;
     overflow-x: hidden;
     margin-right: -20px;
+    padding-bottom: 10px;
 }
 
-.todos  input[type="checkbox"]{   
-  position: absolute;  
-  clip: rect(0,0,0,0);
+.todos input[type="checkbox"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
 }
 
-.todos  input[type="checkbox"]:checked + label::before{  
-  content: '\2713';    
-  background: yellowgreen;
-}
-.todos  input[type="checkbox"]:focus + label::before{  
-  box-shadow: 0 0 0 1px #58a;
+.todos input[type="checkbox"]:checked+label::before {
+    content: '\2713';
+    background: yellowgreen;
 }
 
-.todos input[type="checkbox"]:checked ~ span {
+.todos input[type="checkbox"]:focus+label::before {
+    box-shadow: 0 0 0 1px #58a;
+}
+
+.todos input[type="checkbox"]:checked~span {
     color: #E84C3D;
 }
 
@@ -176,7 +181,7 @@ li {
     margin-right: 10px;
 }
 
-.todos>li> .title {
+.todos>li>.title {
     min-width: 26%;
 }
 

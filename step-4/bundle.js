@@ -763,19 +763,12 @@ _leancloudStorage2.default.init({
     appKey: APP_KEY
 });
 
-var TestObject = _leancloudStorage2.default.Object.extend('TestObject');
-var testObject = new TestObject();
-testObject.save({
-    words: 'Hello World!'
-}).then(function (object) {
-    alert('LeanCloud Rocks!');
-});
-
 var app = new _vue2.default({
     el: "#app",
     data: {
         newTodo: '',
         todoList: [],
+        currentUser: null,
         id: [],
         actionType: 'signUp',
         formData: {
@@ -813,6 +806,37 @@ var app = new _vue2.default({
         removeTodo: function removeTodo(todo) {
             var index = this.todoList.indexOf(todo);
             this.todoList.splice(index, 1);
+        },
+
+        signUp: function signUp() {
+            var _this2 = this;
+
+            var user = new _leancloudStorage2.default.User();
+            user.setUsername(this.formData.username);
+            user.setPassword(this.formData.password);
+            user.signUp().then(function (loginedUser) {
+                _this2.currentUser = _this2.getCurrentUser();
+            }, function (error) {
+                alert('注册失败');
+            });
+        },
+
+        login: function login() {
+            var _this3 = this;
+
+            _leancloudStorage2.default.User.logIn(this.formData.username, this.formData.password).then(function (loginedUser) {
+                _this3.currentUser = _this3.getCurrentUser();
+            }, function (error) {
+                alert("登录失败");
+            });
+        },
+        getCurrentUser: function getCurrentUser() {
+            var _AV$User$current = _leancloudStorage2.default.User.current(),
+                id = _AV$User$current.id,
+                createdAt = _AV$User$current.createdAt,
+                username = _AV$User$current.attributes.username;
+
+            return { id: id, username: username, createdAt: createdAt };
         },
 
         DateFormat: function DateFormat() {
@@ -11969,7 +11993,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "body {\r\n    background: url(" + __webpack_require__(14) + ") no-repeat;\r\n    background-size: cover;\r\n    overflow: hidden;\r\n}\r\n\r\nol,\r\nli {\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n\r\n#app {\r\n    border-radius: 5px;\r\n    position: relative;\r\n    padding: 20px 30px;\r\n    background: rgba(110,162,232, .8);\r\n    box-shadow: 2px 1px 3px #333;\r\n    max-width: 660px;\r\n    margin: 12% auto 0;\r\n    z-index: 3;\r\n}\r\n\r\n#signInAndSignUp {\r\n  background: #E0F2FD;\r\n  padding: 20px;\r\n  position: absolute;\r\n  top: 40%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  box-shadow: 1px 2px 8px #000;\r\n}\r\n\r\n#signInAndSignUp .signHead {\r\n  width: 50%;\r\n  margin: 0 auto;\r\n  text-align: center;\r\n}\r\n\r\n#signInAndSignUp .signHead label {\r\n  margin-left: 20px;\r\n  display: inline-block;\r\n}\r\n\r\n#signInAndSignUp .formRow {\r\n  display: flex;\r\n  align-items: center;\r\n  margin-top: 10px;\r\n}\r\n\r\n#signInAndSignUp .formRow span {\r\n  width: 30%;\r\n  text-align: right;\r\n}\r\n\r\n#signInAndSignUp .formRow input {\r\n  font-size: 22px;\r\n    width: 50%;\r\n    display: block;\r\n    padding: 5px;\r\n    background: #fff;\r\n    border: none;\r\n    caret-color: #ccc;\r\n    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7),\r\n    inset 0px 2px 5px #aaaaaa;\r\n    border-radius: 5px;\r\n    transition: all .3s;\r\n    margin: 0 auto;\r\n    outline: none;\r\n}\r\n\r\n.signUp,\r\n.login {\r\n  margin-top: 20px;\r\n}\r\n\r\n.formActions {\r\n  float: right;\r\n  margin-top: 20px;\r\n}\r\n.formActions input {\r\n  background: #19AD43;\r\n  border:none;\r\n  border-radius: 5px;\r\n  padding: 10px 15px;\r\n  box-shadow: 2px 3px 8px #000;\r\n  color: #fff;\r\n}\r\n\r\n.formActions input:hover {\r\n  background: #4EB76B;\r\n}\r\n\r\n.logo {\r\n    width: 150px;\r\n    height: 150px;\r\n    position: absolute;\r\n    top: -150px;\r\n    right: 0;\r\n    background: url(" + __webpack_require__(15) + ") no-repeat;\r\n    background-size: 150px 150px;\r\n    z-index: 1;\r\n}\r\n\r\n\r\n.newTask>input {\r\n    font-size: 22px;\r\n    width: 50%;\r\n    display: block;\r\n    padding: 5px;\r\n    background: #E4F6FF;\r\n    border: none;\r\n    caret-color: #ccc;\r\n    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7),\r\n    inset 0px 2px 5px #aaaaaa;\r\n    border-radius: 5px;\r\n    transition: all .3s;\r\n    margin: 0 auto;\r\n}\r\n\r\n.newTask>input:focus {\r\n    outline: none;\r\n    background: #f5f2ef;\r\n    width: 80%;\r\n}\r\n\r\n.todos input[type=\"checkbox\"]+label::before{ \r\n   content: '\\A0';  /* non-break-block*/\r\n   display: inline-block;  \r\n   vertical-align: .1em; \r\n   width: .8em; \r\n   height: .8em;  \r\n   margin-right: .2em;  \r\n   border-radius: .2em;\r\n   background: silver; \r\n   text-indent: .15em; \r\n   line-height: .65em; \r\n   transition: background .2s;\r\n}\r\n\r\n.todos {\r\n    max-height: 380px;\r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    margin-right: -20px;\r\n}\r\n\r\n.todos  input[type=\"checkbox\"]{   \r\n  position: absolute;  \r\n  clip: rect(0,0,0,0);\r\n}\r\n\r\n.todos  input[type=\"checkbox\"]:checked + label::before{  \r\n  content: '\\2713';    \r\n  background: yellowgreen;\r\n}\r\n.todos  input[type=\"checkbox\"]:focus + label::before{  \r\n  box-shadow: 0 0 0 1px #58a;\r\n}\r\n\r\n.todos input[type=\"checkbox\"]:checked ~ span {\r\n    color: #E84C3D;\r\n}\r\n\r\n.todos-box {\r\n    overflow: hidden;\r\n}\r\n\r\n\r\n.todos>li {\r\n    display: flex;\r\n    margin-top: 10px;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    margin-right: 10px;\r\n}\r\n\r\n.todos>li> .title {\r\n    min-width: 26%;\r\n}\r\n\r\n.todos>li>button {\r\n    background: #FA5555;\r\n    box-shadow: 2px 1px 3px #333;\r\n    border: none;\r\n    border-radius: 5px;\r\n    color: #fff;\r\n    padding: 10px;\r\n}\r\n\r\n.todos>li>button:hover {\r\n    background: #FB7777;\r\n}", ""]);
+exports.push([module.i, "body {\r\n    background: url(" + __webpack_require__(14) + ") no-repeat;\r\n    background-size: cover;\r\n    overflow: hidden;\r\n}\r\n\r\nol,\r\nli {\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n\r\n#todo {\r\n    border-radius: 5px;\r\n    position: relative;\r\n    padding: 20px 30px;\r\n    background: rgba(56, 85, 160, .8);\r\n    box-shadow: 2px 1px 3px #333;\r\n    max-width: 660px;\r\n    margin: 12% auto 0;\r\n    z-index: 3;\r\n}\r\n\r\n#signInAndSignUp {\r\n    background: rgba(56, 85, 160, .8);\r\n    padding: 20px;\r\n    position: absolute;\r\n    top: 40%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    box-shadow: 1px 2px 8px #000;\r\n    color: #fff;\r\n}\r\n\r\n#signInAndSignUp .signHead {\r\n    width: 50%;\r\n    margin: 0 auto;\r\n    text-align: center;\r\n}\r\n\r\n#signInAndSignUp .signHead label {\r\n    margin-left: 20px;\r\n    display: inline-block;\r\n}\r\n\r\n#signInAndSignUp .formRow {\r\n    display: flex;\r\n    align-items: center;\r\n    margin-top: 10px;\r\n}\r\n\r\n#signInAndSignUp .formRow span {\r\n    width: 30%;\r\n    text-align: right;\r\n}\r\n\r\n#signInAndSignUp .formRow input {\r\n    font-size: 22px;\r\n    width: 50%;\r\n    display: block;\r\n    padding: 5px;\r\n    background: #fff;\r\n    border: none;\r\n    caret-color: #ccc;\r\n    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7),\r\n    inset 0px 2px 5px #aaaaaa;\r\n    border-radius: 5px;\r\n    transition: all .3s;\r\n    margin: 0 auto;\r\n    outline: none;\r\n}\r\n\r\n.signUp,\r\n.login {\r\n    margin-top: 20px;\r\n}\r\n\r\n.formActions {\r\n    float: right;\r\n    margin-top: 20px;\r\n}\r\n\r\n.formActions input {\r\n    background: #19AD43;\r\n    border: none;\r\n    border-radius: 5px;\r\n    padding: 10px 15px;\r\n    box-shadow: 2px 3px 8px #000;\r\n    color: #fff;\r\n}\r\n\r\n.formActions input:hover {\r\n    background: #4EB76B;\r\n}\r\n\r\n.logo {\r\n    width: 150px;\r\n    height: 150px;\r\n    position: absolute;\r\n    top: -150px;\r\n    right: 0;\r\n    background: url(" + __webpack_require__(15) + ") no-repeat;\r\n    background-size: 150px 150px;\r\n    z-index: 1;\r\n}\r\n\r\n\r\n.newTask>input {\r\n    font-size: 22px;\r\n    width: 50%;\r\n    display: block;\r\n    padding: 5px;\r\n    background: #E4F6FF;\r\n    border: none;\r\n    caret-color: #ccc;\r\n    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7),\r\n    inset 0px 2px 5px #aaaaaa;\r\n    border-radius: 5px;\r\n    transition: all .3s;\r\n    margin: 0 auto;\r\n}\r\n\r\n.newTask>input:focus {\r\n    outline: none;\r\n    background: #f5f2ef;\r\n    width: 80%;\r\n}\r\n\r\n.todos input[type=\"checkbox\"]+label::before {\r\n    content: '\\A0';\r\n    /* non-break-block*/\r\n    display: inline-block;\r\n    vertical-align: .1em;\r\n    width: .8em;\r\n    height: .8em;\r\n    margin-right: .2em;\r\n    border-radius: .2em;\r\n    background: silver;\r\n    text-indent: .15em;\r\n    line-height: .65em;\r\n    transition: background .2s;\r\n}\r\n\r\n.todos {\r\n    max-height: 380px;\r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    margin-right: -20px;\r\n    padding-bottom: 10px;\r\n}\r\n\r\n.todos input[type=\"checkbox\"] {\r\n    position: absolute;\r\n    clip: rect(0, 0, 0, 0);\r\n}\r\n\r\n.todos input[type=\"checkbox\"]:checked+label::before {\r\n    content: '\\2713';\r\n    background: yellowgreen;\r\n}\r\n\r\n.todos input[type=\"checkbox\"]:focus+label::before {\r\n    box-shadow: 0 0 0 1px #58a;\r\n}\r\n\r\n.todos input[type=\"checkbox\"]:checked~span {\r\n    color: #E84C3D;\r\n}\r\n\r\n.todos-box {\r\n    overflow: hidden;\r\n}\r\n\r\n\r\n.todos>li {\r\n    display: flex;\r\n    margin-top: 10px;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    margin-right: 10px;\r\n}\r\n\r\n.todos>li>.title {\r\n    min-width: 26%;\r\n}\r\n\r\n.todos>li>button {\r\n    background: #FA5555;\r\n    box-shadow: 2px 1px 3px #333;\r\n    border: none;\r\n    border-radius: 5px;\r\n    color: #fff;\r\n    padding: 10px;\r\n}\r\n\r\n.todos>li>button:hover {\r\n    background: #FB7777;\r\n}", ""]);
 
 // exports
 

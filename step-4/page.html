@@ -8,7 +8,7 @@
 
 <body>
     <div id="app">
-        <section id="signInAndSignUp">
+        <section id="signInAndSignUp" v-if="!currentUser">
             <div class="signHead">
                 <label for="signUpBtn"><input type="radio" id="signUpBtn" v-model="actionType" value="signUp">注册</label>
                 <label for="loginBtn"><input type="radio" id="loginBtn" v-model="actionType" value="login">登录</label>
@@ -27,12 +27,12 @@
                 </form>
             </div>
             <div class="login" v-if="actionType=='login'">
-                <form action="">
+                <form @submit.prevent="login">
                     <div class="formRow">
-                        <span>用户名:</span><input type="text">
+                        <span>用户名:</span><input type="text" v-model="formData.username">
                     </div>
                     <div class="formRow">
-                        <span>密码:</span><input type="password">
+                        <span>密码:</span><input type="password" v-model="formData.password">
                     </div>
                     <div class="formActions">
                         <input type="submit" value="登录">
@@ -40,7 +40,7 @@
                 </form>
             </div>
         </section>
-        <section id="todo">
+        <section id="todo" v-if="currentUser">
             <div class="logo"></div>
             <div class="newTask">
                 <input type="text" v-model="newTodo" @keyup.enter="addTodo">

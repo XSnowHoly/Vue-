@@ -11,19 +11,12 @@ AV.init({
     appKey: APP_KEY
 });
 
-var TestObject = AV.Object.extend('TestObject');
-var testObject = new TestObject();
-testObject.save({
-    words: 'Hello World!'
-}).then(function(object) {
-    alert('LeanCloud Rocks!');
-})
-
 var app = new Vue({
     el: "#app",
     data: {
         newTodo: '',
         todoList: [],
+        currentUser: null,
         id: [],
         actionType: 'signUp',
         formData: {
@@ -59,6 +52,29 @@ var app = new Vue({
         removeTodo: function(todo) {
             let index = this.todoList.indexOf(todo);
             this.todoList.splice(index, 1);
+        },
+
+        signUp: function () {
+            let user = new AV.User();
+            user.setUsername(this.formData.username);
+            user.setPassword(this.formData.password);
+            user.signUp().then((loginedUser) => {
+                this.currentUser = this.getCurrentUser();
+            }, function(error) {
+                alert('注册失败');
+            });
+        },
+
+        login: function () {
+            AV.User.logIn(this.formData.username, this.formData.password).then((loginedUser) => {
+                this.currentUser = this.getCurrentUser();
+            }, function(error) {
+                alert("登录失败");
+            });
+        },
+        getCurrentUser: function () {
+            let {id, createdAt, attributes: {username} } = AV.User.current();
+            return {id, username, createdAt};
         },
 
         DateFormat: function() {
