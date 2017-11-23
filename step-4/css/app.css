@@ -23,10 +23,73 @@ li {
 }
 
 #signInAndSignUp {
+  background: #E0F2FD;
+  padding: 20px;
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 1px 2px 8px #000;
+}
+
+#signInAndSignUp .signHead {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#signInAndSignUp .signHead label {
+  margin-left: 20px;
+  display: inline-block;
+}
+
+#signInAndSignUp .formRow {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#signInAndSignUp .formRow span {
+  width: 30%;
+  text-align: right;
+}
+
+#signInAndSignUp .formRow input {
+  font-size: 22px;
+    width: 50%;
+    display: block;
+    padding: 5px;
+    background: #fff;
+    border: none;
+    caret-color: #ccc;
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7),
+    inset 0px 2px 5px #aaaaaa;
+    border-radius: 5px;
+    transition: all .3s;
+    margin: 0 auto;
+    outline: none;
+}
+
+.signUp,
+.login {
+  margin-top: 20px;
+}
+
+.formActions {
+  float: right;
+  margin-top: 20px;
+}
+.formActions input {
+  background: #19AD43;
+  border:none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  box-shadow: 2px 3px 8px #000;
+  color: #fff;
+}
+
+.formActions input:hover {
+  background: #4EB76B;
 }
 
 .logo {

@@ -7,7 +7,8 @@ var app = new Vue({
     data: {
         newTodo: '',
         todoList: [],
-        id: []
+        id: [],
+        actionType: 'signUp'
     },
     created: function() {
         window.onbeforeunload = () => {
