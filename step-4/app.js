@@ -1,6 +1,23 @@
 import Vue from 'vue';
+import AV from 'leancloud-storage';
 import 'normalize.css';
 import './css/app.css';
+
+var APP_ID = 'T75QDBaNBgHKFY6aUJ2Rr9Pc-gzGzoHsz';
+var APP_KEY = 'wW3q4jrktzc5suORpNP6dLUm';
+
+AV.init({
+    appId: APP_ID,
+    appKey: APP_KEY
+});
+
+var TestObject = AV.Object.extend('TestObject');
+var testObject = new TestObject();
+testObject.save({
+    words: 'Hello World!'
+}).then(function(object) {
+    alert('LeanCloud Rocks!');
+})
 
 var app = new Vue({
     el: "#app",
@@ -8,7 +25,11 @@ var app = new Vue({
         newTodo: '',
         todoList: [],
         id: [],
-        actionType: 'signUp'
+        actionType: 'signUp',
+        formData: {
+            usename: '',
+            password: ''
+        }
     },
     created: function() {
         window.onbeforeunload = () => {

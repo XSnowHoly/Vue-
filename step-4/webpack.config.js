@@ -3,6 +3,9 @@ module.exports = {
   output: {
     filename: 'bundle.js'
   },
+  devServer: {
+    contentBase: './'
+  },
   module: {
         loaders: [
             {
