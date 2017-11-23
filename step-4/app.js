@@ -18,6 +18,7 @@ var app = new Vue({
         todoList: [],
         currentUser: null,
         id: [],
+        username: null,
         actionType: 'signUp',
         formData: {
             usename: '',
@@ -33,6 +34,11 @@ var app = new Vue({
         let oldDataString = window.localStorage.getItem('myTodos');
         let oldData = JSON.parse(oldDataString);
         this.todoList = oldData || [];
+        this.currentUser = this.getCurrentUser();
+        if (this.currentUser) {
+            this.username = this.getUsername();
+            console.log(this.username);
+        }
     },
     methods: {
         addTodo: function() {
@@ -54,27 +60,53 @@ var app = new Vue({
             this.todoList.splice(index, 1);
         },
 
-        signUp: function () {
+        signUp: function() {
             let user = new AV.User();
             user.setUsername(this.formData.username);
             user.setPassword(this.formData.password);
             user.signUp().then((loginedUser) => {
                 this.currentUser = this.getCurrentUser();
+                if (this.currentUser) {
+                    this.username = this.getUsername();
+                    console.log(this.username);
+                }
             }, function(error) {
                 alert('注册失败');
             });
         },
 
-        login: function () {
+        login: function() {
             AV.User.logIn(this.formData.username, this.formData.password).then((loginedUser) => {
                 this.currentUser = this.getCurrentUser();
+                if (this.currentUser) {
+                    this.username = this.getUsername();
+                    console.log(this.username);
+                }
             }, function(error) {
                 alert("登录失败");
             });
         },
-        getCurrentUser: function () {
-            let {id, createdAt, attributes: {username} } = AV.User.current();
-            return {id, username, createdAt};
+        logout: function() {
+            AV.User.logOut();
+            this.currentUser = null;
+            window.location.reload();
+        },
+        getCurrentUser: function() {
+            let current = AV.User.current();
+            if (current) {
+                let { id, createdAt, attributes: { username } } = current;
+                return { id, username, createdAt };
+            } else {
+                return null;
+            }
+        },
+        getUsername: function() {
+            let username = this.currentUser.username;
+            if (username) {
+                return username;
+            } else {
+                return null;
+            }
         },
 
         DateFormat: function() {
