@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>step-4</title>
+</head>
+
+<body>
+    <div id="app">
+        <section id="signInAndSignUp">
+            <div>
+                <label for=""><input type="radio" name="sign">注册</label>
+                <label for=""><input type="radio" name="sign">登录</label>
+            </div>
+            <div class="signUp">
+                <form action="">
+                    <div class="formRow">
+                        <input type="text">用户名
+                    </div>
+                    <div class="formRow">
+                        <input type="password">密码
+                    </div>
+                    <div class="formActions">
+                        <input type="submit" value="注册">
+                    </div>
+                </form>
+            </div>
+            <div class="login">
+                <form action="">
+                    <div class="formRow">
+                        <input type="text">用户名
+                    </div>
+                    <div class="formRow">
+                        <input type="password">密码
+                    </div>
+                    <div class="formActions">
+                        <input type="submit" value="登录">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section id="todo">
+            <div class="logo"></div>
+            <div class="newTask">
+                <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+            </div>
+            <div class="todos-box">
+                <ol class="todos">
+                    <li v-for="todo in todoList">
+                        <input type="checkbox" v-bind:id="todo.id" v-model="todo.done">
+                        <label v-bind:for="todo.id"></label>
+                        <span class="title">{{ todo.title }}</span>
+                        <span class="creation-time"> {{ todo.createdAt }} </span>
+                        <span v-if="todo.done">已完成</span>
+                        <span v-else>未完成</span>
+                        <button @click="removeTodo(todo)">删除</button>
+                    </li>
+                </ol>
+            </div>
+        </section>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+
+</html>

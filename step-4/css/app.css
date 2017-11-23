@@ -1,0 +1,131 @@
+body {
+    background: url(../img/65809956_p0.jpg) no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+ol,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+
+#app {
+    border-radius: 5px;
+    position: relative;
+    padding: 20px 30px;
+    background: rgba(110,162,232, .8);
+    box-shadow: 2px 1px 3px #333;
+    max-width: 660px;
+    margin: 12% auto 0;
+    z-index: 3;
+}
+
+#signInAndSignUp {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: -150px;
+    right: 0;
+    background: url(../img/akuya.png) no-repeat;
+    background-size: 150px 150px;
+    z-index: 1;
+}
+
+
+.newTask>input {
+    font-size: 22px;
+    width: 50%;
+    display: block;
+    padding: 5px;
+    background: #E4F6FF;
+    border: none;
+    caret-color: #ccc;
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7),
+    inset 0px 2px 5px #aaaaaa;
+    border-radius: 5px;
+    transition: all .3s;
+    margin: 0 auto;
+}
+
+.newTask>input:focus {
+    outline: none;
+    background: #f5f2ef;
+    width: 80%;
+}
+
+.todos input[type="checkbox"]+label::before{ 
+   content: '\a0';  /* non-break-block*/
+   display: inline-block;  
+   vertical-align: .1em; 
+   width: .8em; 
+   height: .8em;  
+   margin-right: .2em;  
+   border-radius: .2em;
+   background: silver; 
+   text-indent: .15em; 
+   line-height: .65em; 
+   transition: background .2s;
+}
+
+.todos {
+    max-height: 380px;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-right: -20px;
+}
+
+.todos  input[type="checkbox"]{   
+  position: absolute;  
+  clip: rect(0,0,0,0);
+}
+
+.todos  input[type="checkbox"]:checked + label::before{  
+  content: '\2713';    
+  background: yellowgreen;
+}
+.todos  input[type="checkbox"]:focus + label::before{  
+  box-shadow: 0 0 0 1px #58a;
+}
+
+.todos input[type="checkbox"]:checked ~ span {
+    color: #E84C3D;
+}
+
+.todos-box {
+    overflow: hidden;
+}
+
+
+.todos>li {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.todos>li> .title {
+    min-width: 26%;
+}
+
+.todos>li>button {
+    background: #FA5555;
+    box-shadow: 2px 1px 3px #333;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px;
+}
+
+.todos>li>button:hover {
+    background: #FB7777;
+}
